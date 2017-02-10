@@ -10,3 +10,5 @@ factorial n = product [1 .. n]
 
 average ns = sum ns `div` length ns
 average1 ns = div (sum ns) (length ns)
+
+main = print (double (quadruple 20) + factorial 20)
