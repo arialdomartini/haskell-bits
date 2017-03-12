@@ -35,6 +35,7 @@ not True  = False
 
 (&&) :: Bool -> Bool -> Bool
 True  && True  = True
-True  && False = False
-False && True  = False
-False && False = False
+_     && _     = False
+-- True  && False = False
+-- False && True  = False
+-- False && False = False
