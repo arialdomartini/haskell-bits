@@ -33,16 +33,21 @@ not :: Bool -> Bool
 not False = True
 not True  = False
 
-(&&) :: Bool -> Bool -> Bool
+(&&)          :: Bool -> Bool -> Bool
 True  && True  = True
 True  && False = False
 False && True  = False
 False && False = False
 
-(&&&) :: Bool -> Bool -> Bool
+(&&&)        :: Bool -> Bool -> Bool
 True &&& True = True
 _    &&& _    = False
 
-(&&&&) :: Bool -> Bool -> Bool
+(&&&&)      :: Bool -> Bool -> Bool
 True  &&&& b = b
 False &&&& b = False
+
+
+mhead      :: [a] -> a
+mhead (x:_) = x
+
