@@ -51,3 +51,6 @@ False &&&& b = False
 mhead      :: [a] -> a
 mhead (x:_) = x
 
+mtail       :: [a] -> [a]
+mtail (_:xs) = xs
+
