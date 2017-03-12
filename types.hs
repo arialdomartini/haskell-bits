@@ -21,3 +21,20 @@ signum n = if n == 0 then 0 else
 
 abs2 n | n >= 0     =  n
        | otherwise  = -n
+
+signum2 :: Int -> Int
+signum2 n |  n == 0  = 0
+          |  n > 0   = 1
+          |  n < 0   = -1
+
+
+-- Pattern matching
+not :: Bool -> Bool
+not False = True
+not True  = False
+
+(&&) :: Bool -> Bool -> Bool
+True  && True  = True
+True  && False = False
+False && True  = False
+False && False = False
