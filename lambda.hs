@@ -9,3 +9,5 @@ const a b = a
 
 const2 :: a -> (b -> a)
 const2 = \a -> (\_ -> a)
+
+const3 x = \_ -> x
