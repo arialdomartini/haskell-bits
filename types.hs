@@ -54,3 +54,7 @@ mhead (x:_) = x
 mtail       :: [a] -> [a]
 mtail (_:xs) = xs
 
+section_halv = (/2)
+section_double = (*2)
+section_successor = (+1)
+section_reciprocate = (1/)
