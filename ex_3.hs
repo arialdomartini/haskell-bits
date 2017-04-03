@@ -3,4 +3,7 @@ halve1 xs = (take n xs, drop n xs)
 
 halve2 xs = splitAt (length xs `div` 2) xs
 
-main = print(halve2 [1, 2, 3, 4, 5, 6])
+halve3 xs = (take (n `div` 2) xs, drop (n `div` 2) xs)
+  where n = length xs
+
+main = print(halve3 [1, 2, 3, 4, 5, 6])
