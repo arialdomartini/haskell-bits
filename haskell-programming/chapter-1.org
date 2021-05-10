@@ -1,0 +1,47 @@
+# -*- eval: (org-babel-lob-ingest "./ob-haskell-common.org"); -*-
+#+TITLE: Chapter 1 - All you need is lambda
+
+* Intro
+- The essence of functional programming is that programs are a combination of expressions.
+- Functions can be reduced or evaluated.
+- Referential Transparency
+** Lambda Calculus
+*** 3 basic components or /lambda terms/
+- expressions
+- variables
+- abstractions (functions)
+*** They consist of 2 parts: head and body:
+
+~λx.x~ is an anonymous function: ~λx~ is the head, ~x~ is the argument; the ~x~ after the ~.~ is the body.
+** Alpha equivalence
+~λ{}x.x~ = ~λ{}c.c~
+They are the same function.
+** Beta reduction
+- we substitute the input expression for all instances of bound variables within the body of the abstraction.
+- the head is eliminated
+We can also apply a function to another lambda abstraction:
+~(λx.x) (λy.y) z~
+ ~[x:=(λy.y)]~ or ~(λ[x:=(λy.y)].x) (λy.y) z~
+ ~(λy.y)~
+ ~[y:=z]~
+ ~z~
+Applications are left associative.
+
+Free variables: variables in the body that are not bound by the head
+In ~λx.xy~, ~y~ is a free variable
+
+Alpha equivalence does not apply to free variables.
+*** Currying
+- ~λxy.xy~ is a shorthand for ~λx.(λy.xy)~
+*** Beta reduction
+- ~(λxyz.xz(yz)(λmn.n)(λp.p)~
+- ~(λx.λy.λz.xz(yz))(λmn.n)(λp.p)~
+- ~(λy.λz.(λmn.n)z(yz))(\λp.p)~
+- ~(λz.(λm.λn.n)z)(yz))(λp.p)~
+- ~(λm.λn.n)(yz))(λp.p)~
+- ~(λn.n)(λp.p)~
+- ~(λp.p)~
+*** Exercises
+- ~(λxy.xz)  = (λmn.mz)~
+- ~(λxy.xxy) = (λa.λb.aab)~
+- ~(λxyz.zx) = (λtos.st)~
