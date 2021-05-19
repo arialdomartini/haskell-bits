@@ -1,0 +1,51 @@
+#+TITLE: Chapter 2
+
+
+ #+BEGIN_SRC haskell :results value :eval (inferior-haskell-start-process)
+2+22
+#+END_SRC
+
+#+BEGIN_SRC haskell :tangle yes
+myReverse :: [a] -> [a]
+myReverse l = myReverse' l []
+myReverse' [] accu = accu
+myReverse' (x:xs) accu = myReverse' xs (x:accu)
+#+END_SRC
+
+
+(setq haskell-process-type 'stack-ghci)
+ ((org-babel-do-load-languages
+     'org-babel-load-languages
+        '((haskell . t)))
+
+vedi che roba?
+#+begin_src shell :exports both
+ls
+#+end_src
+
+#+RESULTS:
+| chapter-002.org |
+| chapter-1.org   |
+| chapter-2.org   |
+| README.md       |
+| stack.yaml      |
+| stack.yaml.lock |
+
+(require 'ob-haskell)
+(setq haskell-process-type 'stack-ghc)
+#+BEGIN_SRC haskell
+2 + 2
+x a = a +2
+x 12
+x :: Int -> Int
+x 12 = 100
+do
+#+END_SRC
+
+
+
+(when (featurep! +intero)
+  (load! +intero))
+
+;; or the simpler equivalent
+(def-feature! +intero)
