@@ -1,51 +1,63 @@
 #+TITLE: Chapter 2
 
+* 2.3 Understanding expressions
+We say that expressions are in /normal form/ when there are no more evaluation steps that can be taken, that is, when they have reached an irreduible form.
+
+Reducible expressions are called /redexes/.
+
+* 2.4 Functions
+All functions have 1 single parameter, and return 1 result. When it seems we are passing multiple parameters, we are instead applying /currying/.
 
  #+BEGIN_SRC haskell :results value :eval (inferior-haskell-start-process)
-2+22
+triple x = x * 3
 #+END_SRC
 
-#+BEGIN_SRC haskell :tangle yes
-myReverse :: [a] -> [a]
-myReverse l = myReverse' l []
-myReverse' [] accu = accu
-myReverse' (x:xs) accu = myReverse' xs (x:accu)
-#+END_SRC
+If we haven an expressions like ~triple 6~, then ~x~ is /bound/ to ~6~.
 
+* 2.5 Evaluation
+Haskell evalutes to /weak head normal form/ (WHNF)
 
-(setq haskell-process-type 'stack-ghci)
- ((org-babel-do-load-languages
-     'org-babel-load-languages
-        '((haskell . t)))
+* 2.7 Associativity and precedence
 
-vedi che roba?
-#+begin_src shell :exports both
-ls
-#+end_src
+:info (*)
+infixl 7
+ *
+-- [1] [2] [3]
+:info (+) (-)
+infixl 6 +
+infixl 6 -
+A infixl means it’s an infix operator; the l means it’s left associative.
+2. 7 is the precedence: higher is applied first, on a scale of 0-9.
+3. Infix function name: in this case, multiplication.
 
-#+RESULTS:
-| chapter-002.org |
-| chapter-1.org   |
-| chapter-2.org   |
-| README.md       |
-| stack.yaml      |
-| stack.yaml.lock |
+B
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+B
+B
 
-(require 'ob-haskell)
-(setq haskell-process-type 'stack-ghc)
-#+BEGIN_SRC haskell
-2 + 2
-x a = a +2
-x 12
-x :: Int -> Int
-x 12 = 100
-do
-#+END_SRC
-
-
-
-(when (featurep! +intero)
-  (load! +intero))
-
-;; or the simpler equivalent
-(def-feature! +intero)
