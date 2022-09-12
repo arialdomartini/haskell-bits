@@ -50,6 +50,7 @@ test-suite learn-you-a-haskell-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Chapter3Spec
       UnoSpec
       Paths_learn_you_a_haskell
   hs-source-dirs:
