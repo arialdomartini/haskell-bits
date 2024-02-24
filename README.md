@@ -1,0 +1,1 @@
+# Notes Reading Effective Haskell
