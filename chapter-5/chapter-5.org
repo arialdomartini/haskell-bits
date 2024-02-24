@@ -24,3 +24,52 @@
   #+begin_src shell
     $ ghcup tui
   #+end_src
+
+** Basic use of Cabal
+- Cabal
+  It can be used for
+  - package management
+  - dependency management
+  - building project
+  - running your program
+
+** Installing libraries and applications
+#+begin_src shell
+  $  cabal update
+  Downloading the latest package list from hackage.haskell.org
+  Package list of hackage.haskell.org has been updated.
+  The index-state is set to 2024-02-24T09:38:29Z.
+  To revert to previous state run:
+      cabal v2-update 'hackage.haskell.org,2024-01-04T21:59:02Z'
+#+end_src
+
+To install applications:
+
+#+begin_src shell
+  $  cabal install hello
+  Resolving dependencies...
+  Build profile: -w ghc-9.8.1 -O1
+  In order, the following will be built (use -v for more details):
+   - hello-1.0.0.2 (exe:hello) (requires build)
+  Starting     hello-1.0.0.2 (all, legacy fallback)
+  Building     hello-1.0.0.2 (all, legacy fallback)
+  Installing   hello-1.0.0.2 (all, legacy fallback)
+  Completed    hello-1.0.0.2 (all, legacy fallback)
+  Symlinking 'hello' to '/home/arialdo/.local/bin/hello'
+#+end_src
+
+The book states that applications are installed in =~/.cabal/bin=, but this does not seem the case on my box.
+
+Instead, applications are installed in:
+
+ #+begin_src shell
+ ~/.local/state/cabal/store/ghc-9.8.1
+ #+end_src
+
+ and then symlinked to:
+
+  #+begin_src shell
+   ~/.local/bin/
+ #+end_src
+
+ Cabal does not offer a way to uninstall applications.
