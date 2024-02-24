@@ -1,0 +1,26 @@
+* Chapter 5 - Creating And Structuring Haskell Projects
+
+** Installing
+- check if Cabal is installed
+
+  #+begin_src shell
+    $ cabal --version
+    cabal-install version 3.10.2.1
+    compiled using version 3.10.2.1 of the Cabal library 
+  #+end_src
+
+- I installed Cabal with =ghcup=
+
+- I (probably) install =ghcup= with =pacman= from the AUR:
+
+  #+begin_src shell
+    $ yay -Qs ghcup
+    local/ghcup-hs-bin 0.1.20.0-1
+    an installer for the general purpose language Haskell
+  #+end_src
+
+- Find out which version of Cabal is installed and enabled with:
+
+  #+begin_src shell
+    $ ghcup tui
+  #+end_src
