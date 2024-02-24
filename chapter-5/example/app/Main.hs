@@ -1,4 +1,5 @@
 module Main where
+import Greetings(greeting)
 
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = putStrLn greeting

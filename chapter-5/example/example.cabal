@@ -19,5 +19,11 @@ executable example
     other-modules:
     other-extensions:
     build-depends:    base ^>=4.19.0.0
+                    , greeting
     hs-source-dirs:   app
     default-language: GHC2021
+
+library greeting
+    hs-source-dirs:   src/Greetings
+    exposed-modules:  Greetings
+    build-depends:    base ^>=4.19.0.0
