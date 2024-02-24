@@ -97,4 +97,5 @@ Hello, Haskell!
 #+end_src
 
 
-
+- PVP
+  PVP stands for Package Versionining Policy
