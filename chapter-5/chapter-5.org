@@ -73,3 +73,28 @@ Instead, applications are installed in:
  #+end_src
 
  Cabal does not offer a way to uninstall applications.
+
+** Creating a Project
+Use =cabal init= then follow the interactive wizard:
+
+#+begin_src shell
+  $ mkdir example
+  $ cd example
+  $ cabal init
+  $ ls
+  app/  CHANGELOG.md  example.cabal  LICENSE
+  $ cabal run
+  Resolving dependencies...
+  Build profile: -w ghc-9.8.1 -O1
+  In order, the following will be built (use -v for more details):
+   - example-0.1.0.0 (exe:example) (first run)
+  Configuring executable 'example' for example-0.1.0.0..
+  Preprocessing executable 'example' for example-0.1.0.0..
+  Building executable 'example' for example-0.1.0.0..
+  [1 of 1] Compiling Main             ( app/Main.hs,   /home/arialdo/prg/haskell/effective-haskell/chapter-5/example/dist-news  tyle/build/x86_64-linux/ghc-9.8.1/example-0.1.0.0/x/example/build/examp  le/example-tmp/Main.o )
+  [2 of 2] Linking   /home/arialdo/prg/haskell/effective-haskell/chapter-5/example/dist-news  tyle/build/x86_64-linux/ghc-9.8.1/example-0.1.0.0/x/example/build/examp  le/example
+Hello, Haskell!
+#+end_src
+
+
+
