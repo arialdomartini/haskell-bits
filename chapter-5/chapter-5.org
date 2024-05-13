@@ -11,7 +11,7 @@
 
 - I installed Cabal with =ghcup=
 
-- I (probably) install =ghcup= with =pacman= from the AUR:
+- Most likely I have installed =ghcup= with =pacman= from the AUR:
 
   #+begin_src shell
     $ yay -Qs ghcup
