@@ -68,7 +68,7 @@ Instead, applications are installed in:
 
  and then symlinked to:
 
-  #+begin_src shell
+ #+begin_src shell
    ~/.local/bin/
  #+end_src
 
@@ -99,3 +99,15 @@ Hello, Haskell!
 
 - PVP
   PVP stands for Package Versionining Policy
+
+
+** Stanzas and modules
+=default-language= needs to be specified in each stanza, otherwise a warning (not an error!) will be emitted and the module will not be found:
+
+#+begin_src shell
+  Warning: Packages using 'cabal-version: >= 1.10' and before 'cabal-version:
+  3.4' must specify the 'default-language' field for each component (e.g.
+  Haskell98 or Haskell2010). If a component uses different languages in
+  different modules then list the other ones in the 'other-languages' field.
+#+end_src
+
