@@ -1,0 +1,63 @@
+#+TITLE: Chapter 2
+
+* 2.3 Understanding expressions
+We say that expressions are in /normal form/ when there are no more evaluation steps that can be taken, that is, when they have reached an irreduible form.
+
+Reducible expressions are called /redexes/.
+
+* 2.4 Functions
+All functions have 1 single parameter, and return 1 result. When it seems we are passing multiple parameters, we are instead applying /currying/.
+
+ #+BEGIN_SRC haskell :results value :eval (inferior-haskell-start-process)
+triple x = x * 3
+#+END_SRC
+
+If we haven an expressions like ~triple 6~, then ~x~ is /bound/ to ~6~.
+
+* 2.5 Evaluation
+Haskell evalutes to /weak head normal form/ (WHNF)
+
+* 2.7 Associativity and precedence
+
+:info (*)
+infixl 7
+ *
+-- [1] [2] [3]
+:info (+) (-)
+infixl 6 +
+infixl 6 -
+A infixl means it’s an infix operator; the l means it’s left associative.
+2. 7 is the precedence: higher is applied first, on a scale of 0-9.
+3. Infix function name: in this case, multiplication.
+
+B
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+B
+B
+

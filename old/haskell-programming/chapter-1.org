@@ -1,0 +1,107 @@
+# -*- eval: (org-babel-lob-ingest "./ob-haskell-common.org"); -*-
+#+TITLE: Chapter 1 - All you need is lambda
+
+* 1.1 Intro
+- The essence of functional programming is that programs are a combination of expressions.
+- Functions can be reduced or evaluated.
+- Referential Transparency
+* 1.4 Lambda Calculus
+3 basic components or /lambda terms/
+- expressions
+- variables
+- abstractions (functions)
+
+They consist of 2 parts: head and body:
+
+~λx.x~ is an anonymous function: ~λx~ is the head, ~x~ is the argument; the ~x~ after the ~.~ is the body.
+** Alpha equivalence
+~λ{}x.x~ = ~λ{}c.c~
+They are the same function.
+* 1.5 Beta reduction
+- we substitute the input expression for all instances of bound variables within the body of the abstraction.
+- the head is eliminated
+We can also apply a function to another lambda abstraction:
+~(λx.x) (λy.y) z~
+ ~[x:=(λy.y)]~ or ~(λ[x:=(λy.y)].x) (λy.y) z~
+ ~(λy.y)~
+ ~[y:=z]~
+ ~z~
+Applications are left associative.
+
+Free variables: variables in the body that are not bound by the head
+In ~λx.xy~, ~y~ is a free variable
+
+Alpha equivalence does not apply to free variables.
+* 1.6 Multiple arguments & Currying
+- ~λxy.xy~ is a shorthand for ~λx.(λy.xy)~
+*** Beta reduction
+- ~(λxyz.xz(yz)(λmn.n)(λp.p)~
+- ~(λx.λy.λz.xz(yz))(λmn.n)(λp.p)~
+- ~(λy.λz.(λmn.n)z(yz))(\λp.p)~
+- ~(λz.(λm.λn.n)z)(yz))(λp.p)~
+- ~(λm.λn.n)(yz))(λp.p)~
+- ~(λn.n)(λp.p)~
+- ~(λp.p)~
+* Exercises
+- ~(λxy.xz)  = (λmn.mz)~
+- ~(λxy.xxy) = (λa.λb.aab)~
+- ~(λxyz.zx) = (λtos.st)~
+* 1.7 Evaluation is simplification
+/Beta Normal Form/: when the terms cannot be beta reduced anymore, that is, a fully evaluated expression / a fully executed program. ~λx.x~ is fully reduce, while ~(lambda{}x.x)y~ is not in beta normal form, because it has not been applied to the free variable ~z~ yet.
+* 1.8 Combinators
+A lambda term with no free variables. It can only combine the arguments it has been given.
+Examples:
+- ~λx.x~
+- ~λxy.x~
+- ~λxyz.xz(yz)~
+
+ The following are /not/ combinators:
+  - ~λx.y~
+  - ~λx.xz~
+* 1.9 Divergence
+Not all lambda terms reduce to their normal form: some of them /diverges/, their reduction process never terminates rather than convergint to a beta normal form.
+
+Examples:
+- /omega/: ~(λx.xx)(λx.xx)~
+ -~([x := (λx.xx)]xx)~
+ -~((λx.xx)(λx.xx))~: we are back to where we started.
+
+ This matters in programming because terms that diverge don't produce a meaningful answer. This should be represented with Bottom in Haskell.
+
+* 1.11 Exercises
+** Which one is a combinator?
+- ~λx.xxx~ is a combinator
+- ~λxy.zy~ is not
+- ~λxyz.xy(zx)~ is
+- ~λxyz.xy(zxy)~ is
+- ~λxy.xy(zxy)~ is not
+** Normal form or diverges?
+- ~λx.xxx~: normal form
+- ~(λz.zz)(λy.yy)~ this is /omega/, it diverges
+- ~(λx.xxx)z~ this converges to ~zzz~
+** Beta reduce
+- ~(λabc.cba)zz(λwv.v)~
+  + let's apply currying ~(λa.λb.λc.cba)zz(λw.λv.v)~
+  + ~(λa.λb.λc.cba)(z)z(λw.λv.v)~
+  + ~(λb.λc.cbz)z(λw.λv.v)~
+  + ~(λc.czz)(λw.λv.v)~
+  + ~((λw.λv.v)zz)~
+  + ~((λv.v)z)~
+  + ~z~
+- ~(λx.λy.xyy)(λy.y)y~
+  + ~(λy.(λy.y)yy)y~
+  + ~((λy.y)y)y~
+  + ~yy~
+- ~(λy.y)(λx.xx)(λz.zq)~
+  + ~(λx.xx)(λz.zq)~
+  + ~(λz.zq)(λz.zq)~
+  + ~((λz.zq)q)~
+  + ~qq~
+* 1.13 Definitions
+- /abstraction/: an anonymous function, or lambda term
+
+  The lambda term ~λx.x+1~ abstracts out the term ~x+1~, meaning that we can apply this to any ~x~ and recompute different results for each ~x~ we applied the lambda to.
+
+- /Application/: how we evaluate / reduce a lambda, binding its arguments to some values. We consume arguments, so we reduce the expression.
+
+- /Normal order/: evaluating the leftmost, outermost lambdas first. Haskell is *not* evaluated in normal order: it is /call-by-need/ instead.
