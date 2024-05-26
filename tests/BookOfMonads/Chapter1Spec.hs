@@ -2,7 +2,6 @@ module BookOfMonads.Chapter1Spec(spec) where
 
 import Test.Hspec
 
-
 class Equatable a where
   eq :: a -> a -> Bool
 

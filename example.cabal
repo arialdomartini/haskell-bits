@@ -40,6 +40,7 @@ test-suite example-test
     other-modules:
       DummySpec
       BookOfMonads.Chapter1Spec
+      AllAboutMonads.SheepsSpec
     build-depends:
         example
       , base ^>=4.19.0.0
