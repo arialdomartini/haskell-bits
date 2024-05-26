@@ -39,6 +39,7 @@ test-suite example-test
     ghc-options:      -Wall
     other-modules:
       DummySpec
+      BookOfMonads.Chapter1Spec
     build-depends:
         example
       , base ^>=4.19.0.0
