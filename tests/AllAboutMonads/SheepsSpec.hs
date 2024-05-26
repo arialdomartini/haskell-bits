@@ -1,17 +1,18 @@
 module AllAboutMonads.SheepsSpec(spec) where
 
 import Test.Hspec
-import Control.Monad ((<=<))
+import Control.Monad ((>=>))
+import GHC.Base (mplus, mzero)
 
 newtype Sheep = Sheep String deriving (Show, Eq)
 
 father :: Sheep -> Maybe Sheep
 father (Sheep "mother") = Just (Sheep "granfather")
-father _        = Nothing
+father _                = Nothing
 
 mother :: Sheep -> Maybe Sheep
 mother (Sheep "sheep") = Just (Sheep "mother")
-mother _       = Nothing
+mother _               = Nothing
 
 maternalGranfather :: Sheep -> Maybe Sheep
 maternalGranfather sheep =
@@ -23,7 +24,11 @@ maternalGranfatherWithoutDo :: Sheep -> Maybe Sheep
 maternalGranfatherWithoutDo =
 --  return sheep >>= mother >>= father
 --    join . (fmap father) . mother
-    father <=< mother
+    mother Control.Monad.>=> father
+
+
+parent :: Sheep -> Maybe Sheep
+parent sheep = mzero `mplus` father sheep `mplus` mother sheep
 
 spec :: Spec
 spec = do
@@ -38,3 +43,7 @@ spec = do
 
   it "sheep without a granfather without do notation" $ do
     maternalGranfatherWithoutDo (Sheep "other") `shouldBe` Nothing
+
+
+  it "mplus" $ do
+    parent (Sheep "sheep") `shouldBe` Just (Sheep "mother")
