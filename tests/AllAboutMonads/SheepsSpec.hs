@@ -1,19 +1,18 @@
 module AllAboutMonads.SheepsSpec(spec) where
 
 import Test.Hspec
-import Control.Monad ((>=>))
+import Control.Monad ((>=>), MonadPlus)
 import GHC.Base (mplus, mzero)
-import Data.Maybe (maybeToList)
 
 newtype Sheep = Sheep String deriving (Show, Eq)
 
-father :: Sheep -> Maybe Sheep
-father (Sheep "mother") = Just (Sheep "granfather")
-father _                = Nothing
+father :: MonadPlus m => Sheep -> m Sheep
+father (Sheep "mother") = return (Sheep "granfather")
+father _                = mzero
 
-mother :: Sheep -> Maybe Sheep
-mother (Sheep "sheep") = Just (Sheep "mother")
-mother _               = Nothing
+mother :: MonadPlus m => Sheep -> m Sheep
+mother (Sheep "sheep") = return (Sheep "mother")
+mother _               = mzero
 
 maternalGranfather :: Sheep -> Maybe Sheep
 maternalGranfather sheep =
@@ -28,13 +27,13 @@ maternalGranfatherWithoutDo =
     mother Control.Monad.>=> father
 
 
-parent :: Sheep -> Maybe Sheep
-parent sheep = mzero `mplus` father sheep `mplus` mother sheep
+parent :: MonadPlus m => Sheep -> m Sheep
+parent sheep = father sheep `mplus` mother sheep
 
 
-parents :: Sheep -> [Sheep]
+parents :: MonadPlus m => Sheep -> m Sheep
 parents sheep =
-  maybeToList (father sheep) ++ maybeToList (mother sheep)
+  father sheep `mplus` mother sheep
 
 spec :: Spec
 spec = do
