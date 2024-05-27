@@ -2,7 +2,7 @@ module AllAboutMonads.ContainersSpec(spec) where
 
 import Test.Hspec
 
-newtype AppendLastList a = AppendLastList [a] deriving (Eq, Show)
+newtype AppendLastList a = AppendLastList {getAppendLastList :: [a]} deriving (Eq, Show)
 
 class Container c where
   empty :: c a
@@ -15,8 +15,7 @@ instance Container [] where
 instance Container AppendLastList where
   empty = AppendLastList []
   insert xs x =
-    let (AppendLastList elements) = xs
-    in AppendLastList (elements ++ [x])
+    AppendLastList (getAppendLastList xs ++ [x])
 
 spec :: Spec
 spec = do
