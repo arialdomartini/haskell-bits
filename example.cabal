@@ -41,9 +41,11 @@ test-suite example-test
       DummySpec
       BookOfMonads.Chapter1Spec
       AllAboutMonads.SheepsSpec
+      AllAboutMonads.ExamplesSpec
     build-depends:
         example
       , mtl
+      , containers
       , base ^>=4.19.0.0
       , cond
       , hspec==2.*
