@@ -1,4 +1,4 @@
-module AllAboutMonads.ContainersSpec(spec) where
+module BookOfMonads.ContainersSpec(spec) where
 
 import Test.Hspec
 

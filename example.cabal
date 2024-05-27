@@ -43,6 +43,7 @@ test-suite example-test
       AllAboutMonads.SheepsSpec
       AllAboutMonads.ExamplesSpec
       BookOfMonads.ContainersSpec
+      BookOfMonads.Chapter2StateMonadSpec
     build-depends:
         example
       , mtl
