@@ -1,32 +1,32 @@
 module AllAboutMonads.ExamplesSpec(spec) where
 
 import Test.Hspec
-import qualified Data.Map as Map
+import Control.Monad
 import System.IO
+import Data.Tuple
 
-type Dict = Map String String
-type Entry = String
+splitAtFirstComma :: String -> (String, String)
+splitAtFirstComma s = let (before, after) = break (== ',') s
+                      in (before, drop 2 after)
 
-addEntry :: Dict -> Entry -> Dict
-addEntry d e = insert e d
-
-addDataFromFile :: Dict -> Handle -> IO Dict
-addDataFromFile db handle =
-  do content <- hGetContents handle
-     let entries = map read $ lines content
-     return $ foldl addEntry dict entries
+swapNames :: String -> String
+swapNames s = (\(a, b) -> b ++ " " ++ a) (splitAtFirstComma s)
 
 
-openForReading fileName = openFile fileName ReadMode
+fixName (a, b) = (a, swapNames b)
 
-files = ["one.txt", "two.txt", "three.txt"]
-mapAllEntriesInFiles =
-  do
-     handle <- mapM openForReading files
-     mapM $ addDataFromFile Map handlehandhand
+getName :: String -> Maybe String
+getName name = do let db = [("John", "Smith, John"), ("Mike", "Caine, Michael")]
+                  liftM swapNames (lookup name db)
 
 spec :: Spec
 spec = do
-  it "example 4" $ do
-    1 `shouldBe` 1
+  it "swaps names" $ do
+    swapNames "Rossi, Mario" `shouldBe` "Mario Rossi"
+
+  it "fixes names" $ do
+    fixName ("Mar", "Rossi, Mario") `shouldBe` ("Mar", "Mario Rossi")
+
+  it "swap names" $ do
+    liftM fixName [("John", "Smith, John"), ("Mike", "Caine, Michael")] `shouldBe` [("John", "John Smith"), ("Mike", "Michael Caine")]
 
