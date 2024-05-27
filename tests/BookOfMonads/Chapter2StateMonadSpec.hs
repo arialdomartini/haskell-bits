@@ -9,9 +9,9 @@ countLeaves :: Tree v -> Int
 countLeaves (Leaf _)     = 1
 countLeaves (Node l r)   = countLeaves l + countLeaves r
 
-convert :: Tree String -> Tree Int
-convert (Leaf v)     = Leaf (length v)
-convert (Node l r) = Node (convert l) (convert r)
+convert :: (String->Int) ->Tree String -> Tree Int
+convert f (Leaf v)     = Leaf (f v)
+convert f (Node l r) = Node (convert f l) (convert f r)
 
 spec :: Spec
 spec = do
@@ -23,6 +23,6 @@ spec = do
   it "maps leaves" $ do
     let treeOfWords = Node (Leaf "one") (Node (Leaf "two") (Leaf "three"))
         treeOfNumbs = Node (Leaf 3) (Node (Leaf 3) (Leaf 5 ))
-        treeOfLengths = convert treeOfWords
+        treeOfLengths = convert length treeOfWords
     treeOfLengths `shouldBe` treeOfNumbs
 
