@@ -1,7 +1,7 @@
 module AllAboutMonads.SheepsSpec(spec) where
 
 import Test.Hspec
-import Control.Monad ((>=>), MonadPlus)
+import Control.Monad ((>=>), MonadPlus, foldM)
 import GHC.Base (mplus, mzero)
 
 newtype Sheep = Sheep String deriving (Show, Eq)
@@ -47,6 +47,14 @@ sequence'' :: Monad m => [m a] -> m [a]
 sequence'' =
   foldr mcons (return [])
    where mcons e acc = e >>= (\v -> acc >>= (\xsx -> return (v:xsx)))
+
+
+-- foldM :: (Monad m) => (acc -> e -> m acc) -> acc -> [e] -> m acc
+sequence''' :: Monad m => [m a] -> m [a]
+sequence''' = foldM (\acc e ->
+                       do ee <- e
+                          return (ee : acc))
+              []
 
 
 spec :: Spec
