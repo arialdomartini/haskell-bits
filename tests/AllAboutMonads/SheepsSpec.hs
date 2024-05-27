@@ -35,6 +35,20 @@ parents :: MonadPlus m => Sheep -> m Sheep
 parents sheep =
   father sheep `mplus` mother sheep
 
+
+sequence' :: Monad m => [m a] -> m [a]
+sequence' []     = return []
+sequence' (x:xs)=
+  do v <- x
+     rest <- sequence' xs
+     return (v:rest)
+
+sequence'' :: Monad m => [m a] -> m [a]
+sequence'' =
+  foldr mcons (return [])
+   where mcons e acc = e >>= (\v -> acc >>= (\xsx -> return (v:xsx)))
+
+
 spec :: Spec
 spec = do
   it "sheep with a granfather" $ do
@@ -49,6 +63,11 @@ spec = do
   it "sheep without a granfather without do notation" $ do
     maternalGranfatherWithoutDo (Sheep "other") `shouldBe` Nothing
 
-
   it "mplus" $ do
     parent (Sheep "sheep") `shouldBe` Just (Sheep "mother")
+
+  it "sequences Maybes" $ do
+    let maybes = [Just "Hey", Just "Joe", Just "!"]
+    let prelude  = sequence  maybes
+    let handmade = sequence' maybes
+    prelude `shouldBe` handmade
