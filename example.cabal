@@ -43,7 +43,9 @@ test-suite example-test
       AllAboutMonads.SheepsSpec
     build-depends:
         example
+      , mtl
       , base ^>=4.19.0.0
+      , cond
       , hspec==2.*
       , text==2.*
       , directory

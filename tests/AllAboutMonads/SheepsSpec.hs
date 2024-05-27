@@ -1,7 +1,9 @@
 module AllAboutMonads.SheepsSpec(spec) where
 
 import Test.Hspec
+import Control.Conditional(when, unless)
 import Control.Monad ((>=>), MonadPlus, foldM)
+import Control.Monad.State
 import GHC.Base (mplus, mzero)
 
 newtype Sheep = Sheep String deriving (Show, Eq)
@@ -57,6 +59,10 @@ sequence''' = foldM (\acc e ->
               []
 
 
+twice :: Int -> State String Int
+twice v = return (v * 2)
+
+
 spec :: Spec
 spec = do
   it "sheep with a granfather" $ do
@@ -79,3 +85,10 @@ spec = do
     let prelude  = sequence  maybes
     let handmade = sequence' maybes
     prelude `shouldBe` handmade
+
+  it "shows the usage of unless" $ do
+    let result = do put "initial state"
+                    when True (put "if-true")
+                    twice 20
+          in runState result "Hey!" `shouldBe` (40, "if-true")
+
